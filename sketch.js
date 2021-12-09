@@ -1,9 +1,14 @@
 var player;
+var canvas;
+var enemyGroup;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  canvas = createCanvas(windowWidth, windowHeight);
+
+  enemyGroup = new Group();
 
   player = new Player();
+  var enemyStart = new Enemy();
 }
 
 function draw() {
@@ -12,4 +17,10 @@ function draw() {
   player.display();
 
   drawSprites();
+}
+
+function spawnEnemies(){
+  if(frameCount % 120 === 0){
+    var enemy = new Enemy();
+  }
 }

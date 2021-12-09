@@ -6,6 +6,13 @@ class Player{
         this.xAxis = 0;
         this.yAxis = 0;
         this.sprite.scale = windowWidth/1600;
+
+        this.upAnim = loadAnimation("../sprites/player/Up1.png", "../sprites/player/Up2.png", "../sprites/player/Up3.png", "../sprites/player/Up4.png");
+        this.downAnim = loadAnimation("../sprites/player/Down1.png", "../sprites/player/Down2.png", "../sprites/player/Down3.png", "../sprites/player/Down4.png");
+        this.leftAnim = loadAnimation("../sprites/player/Left1.png", "../sprites/player/Left2.png", "../sprites/player/Left3.png", "../sprites/player/Left4.png");
+        this.rightAnim = loadAnimation("../sprites/player/Right1.png", "../sprites/player/Right2.png", "../sprites/player/Right3.png", "../sprites/player/Right4.png");
+
+        this.display();
     }
 
     display(){
@@ -37,16 +44,36 @@ class Player{
 
         // Define Facing
         if(this.yAxis < 0){
-            this.facing = "up";
+            if(keyIsDown(18)){
+
+            }
+            else{
+                this.facing = "up";
+            }
         }
         if(this.yAxis > 0){
-            this.facing = "down";
+            if(keyIsDown(18)){
+
+            }
+            else{
+                this.facing = "down";
+            }
         }
         if(this.xAxis < 0){
-            this.facing = "left";
+            if(keyIsDown(18)){
+
+            }
+            else{
+                this.facing = "left";
+            }
         }
         if(this.xAxis > 0){
-            this.facing = "right";
+            if(keyIsDown(18)){
+
+            }
+            else{
+                this.facing = "right";
+            }
         }
 
         // Shoot
