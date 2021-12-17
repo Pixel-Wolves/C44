@@ -15,19 +15,33 @@ class Player{
         this.downAnim = loadAnimation("../sprites/player/Down1.png", "../sprites/player/Down2.png", "../sprites/player/Down3.png", "../sprites/player/Down4.png");
         this.leftAnim = loadAnimation("../sprites/player/Left1.png", "../sprites/player/Left2.png", "../sprites/player/Left3.png", "../sprites/player/Left4.png");
         this.rightAnim = loadAnimation("../sprites/player/Right1.png", "../sprites/player/Right2.png", "../sprites/player/Right3.png", "../sprites/player/Right4.png");
+        
+        this.rollUp = loadAnimation("../sprites/player/RollUp1.png", "../sprites/player/RollUp2.png", "../sprites/player/RollUp3.png", "../sprites/player/RollUp4.png");
+        this.rollDown = loadAnimation("../sprites/player/RollDown1.png", "../sprites/player/RollDown2.png", "../sprites/player/RollDown3.png", "../sprites/player/RollDown4.png");
+        this.rollLeft = loadAnimation("../sprites/player/RollLeft1.png", "../sprites/player/RollLeft2.png", "../sprites/player/RollLeft3.png", "../sprites/player/RollLeft4.png");
+        this.rollRight = loadAnimation("../sprites/player/RollRight1.png", "../sprites/player/RollRight2.png", "../sprites/player/RollRight3.png", "../sprites/player/RollRight4.png")
 
         this.sprite.addAnimation("Up", this.upAnim);
         this.sprite.addAnimation("Down", this.downAnim);
         this.sprite.addAnimation("Left", this.leftAnim);
         this.sprite.addAnimation("Right", this.rightAnim);
+
+        this.sprite.addAnimation("RollUp", this.rollUp);
+        this.sprite.addAnimation("RollDown", this.rollDown);
+        this.sprite.addAnimation("RollLeft", this.rollLeft);
+        this.sprite.addAnimation("RollRight", this.rollRight);
+
+        this.roll = false;
+
+        this.alive = true;
     }
 
     display(){
         // Axis Y
-        if(keyIsDown(UP_ARROW)){
+        if(keyIsDown(UP_ARROW) || keyIsDown(87)){
             this.yAxis = -1;
         }
-        else if (keyIsDown(DOWN_ARROW)){
+        else if (keyIsDown(DOWN_ARROW) || keyIsDown(83)){
             this.yAxis = 1;
         }
         else{
@@ -35,10 +49,10 @@ class Player{
         }
 
         // Axis X
-        if(keyIsDown(LEFT_ARROW)){
+        if(keyIsDown(LEFT_ARROW) || keyIsDown(65)){
             this.xAxis = -1;
         }
-        else if (keyIsDown(RIGHT_ARROW)){
+        else if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)){
             this.xAxis = 1;
         }
         else{
@@ -46,8 +60,10 @@ class Player{
         }
         
         // Movement
-        this.sprite.velocityX = this.xAxis * this.speed;
-        this.sprite.velocityY = this.yAxis * this.speed;
+        if(gameState === "play"){
+            this.sprite.velocityX = this.xAxis * this.speed;
+            this.sprite.velocityY = this.yAxis * this.speed;
+        }
 
         // Define Facing
         if(this.yAxis < 0){
@@ -71,8 +87,23 @@ class Player{
             }
         }
 
+        // Roll
+        if(keyIsDown(16) && this.yAxis !== 0 || keyIsDown(16) && this.xAxis !== 0){
+            this.roll = true;
+        }
+        else{
+            this.roll = false;
+        }
+
+        if(this.roll == true){
+            this.speed = canvas.width/50;
+        }
+        else{
+            this.speed = canvas.width/100;
+        }
+
         // Shoot
-        if(keyIsDown(32) && frameCount % 10 === 0){
+        if(keyIsDown(32) && frameCount % 5 === 0 && this.roll == false && gameState === "play"){
             var bullet = new Bullet(this.sprite.x,this.sprite.y+canvas.width/35,this.facing);
         }
 
@@ -86,32 +117,87 @@ class Player{
         }
 
         if(this.health <= 0.5){
-            this.health = 0.5;
+            this.health = 100;
+            this.alive = false;
+            gameState = "end";
         }
 
         // Show Health Bar
         this.healthBar.width = round(this.health*canvas.width/200);
 
         // Define Animation Speed
-        if(this.yAxis !== 0 || this.xAxis !== 0){
-            this.sprite.frameDelay = 3;
+        if(gameState === "play"){
+            if(this.yAxis !== 0 && this.roll == false || this.xAxis !== 0 && this.roll == false){
+                this.sprite.frameDelay = 3;
+            }
+            else if (this.yAxis !== 0 && this.roll == true || this.xAxis !== 0 && this.roll == true){
+                this.sprite.frameDelay = 1;
+            }
+            else{
+                this.sprite.frameDelay = 0;
+            }
+        }
+        else if (gameState === "start"){
+            this.sprite.frameDelay = 0;
         }
         else{
-            this.sprite.frameDelay = 0;
+            this.sprite.frameDelay = 3;
+        }
+
+        // Limit player to map
+        if(this.sprite.x > canvas.width){
+            this.sprite.x = canvas.width;
+        }
+        else if(this.sprite.x < 0){
+            this.sprite.x = 0;
+        }
+
+        if(this.sprite.y > canvas.height){
+            this.sprite.y = canvas.height;
+        }
+        else if(this.sprite.y < 0){
+            this.sprite.y = 0;
         }
 
         // Animate
-        if(this.facing === "right"){
-            this.sprite.changeAnimation("Right");
+        if(gameState === "play"){
+            if(this.roll == false){
+                if(this.facing === "right"){
+                    this.sprite.changeAnimation("Right");
+                }
+                else if(this.facing === "left"){
+                    this.sprite.changeAnimation("Left");
+                }
+                else if(this.facing === "up"){
+                    this.sprite.changeAnimation("Up");
+                }
+                else if(this.facing === "down"){
+                    this.sprite.changeAnimation("Down");
+                }
+            }
+            else{
+                if(this.facing === "right"){
+                    this.sprite.changeAnimation("RollRight");
+                }
+                else if(this.facing === "left"){
+                    this.sprite.changeAnimation("RollLeft");
+                }
+                else if(this.facing === "up"){
+                    this.sprite.changeAnimation("RollUp");
+                }
+                else if(this.facing === "down"){
+                    this.sprite.changeAnimation("RollDown");
+                }
+            }
         }
-        else if(this.facing === "left"){
-            this.sprite.changeAnimation("Left");
+        else{
+            
         }
-        else if(this.facing === "up"){
-            this.sprite.changeAnimation("Up");
-        }
-        else if(this.facing === "down"){
-            this.sprite.changeAnimation("Down");
-        }
+    }
+
+    reset(){
+        this.sprite.x = canvas.width/2;
+        this.sprite.y = canvas.height/2;
+        this.alive = true;
     }
 }
