@@ -21,6 +21,9 @@ class Player{
         this.rollLeft = loadAnimation("../sprites/player/RollLeft1.png", "../sprites/player/RollLeft2.png", "../sprites/player/RollLeft3.png", "../sprites/player/RollLeft4.png");
         this.rollRight = loadAnimation("../sprites/player/RollRight1.png", "../sprites/player/RollRight2.png", "../sprites/player/RollRight3.png", "../sprites/player/RollRight4.png")
 
+        this.dieAnim = loadAnimation("../sprites/player/Die1.png", "../sprites/player/Die2.png", "../sprites/player/Die3.png", "../sprites/player/Die4.png", "../sprites/player/Die5.png", "../sprites/player/Die6.png")
+        this.dieAnim.looping = false;
+
         this.sprite.addAnimation("Up", this.upAnim);
         this.sprite.addAnimation("Down", this.downAnim);
         this.sprite.addAnimation("Left", this.leftAnim);
@@ -30,6 +33,8 @@ class Player{
         this.sprite.addAnimation("RollDown", this.rollDown);
         this.sprite.addAnimation("RollLeft", this.rollLeft);
         this.sprite.addAnimation("RollRight", this.rollRight);
+
+        this.sprite.addAnimation("Die", this.dieAnim);
 
         this.roll = false;
 
@@ -63,6 +68,10 @@ class Player{
         if(gameState === "play"){
             this.sprite.velocityX = this.xAxis * this.speed;
             this.sprite.velocityY = this.yAxis * this.speed;
+        }
+        else{
+            this.sprite.velocityX = 0;
+            this.sprite.velocityY = 0;
         }
 
         // Define Facing
@@ -105,6 +114,7 @@ class Player{
         // Shoot
         if(keyIsDown(32) && frameCount % 5 === 0 && this.roll == false && gameState === "play"){
             var bullet = new Bullet(this.sprite.x,this.sprite.y+canvas.width/35,this.facing);
+            sfx.shoot.play();
         }
 
         // Get Hurt
@@ -117,6 +127,7 @@ class Player{
         }
 
         if(this.health <= 0.5){
+            sfx.dieP.play();
             this.health = 100;
             this.alive = false;
             gameState = "end";
@@ -191,13 +202,17 @@ class Player{
             }
         }
         else{
-            
+            this.sprite.changeAnimation("Die");
         }
     }
 
     reset(){
+        this.sprite.addAnimation("Die", this.dieAnim);
         this.sprite.x = canvas.width/2;
         this.sprite.y = canvas.height/2;
         this.alive = true;
+        this.health = 100;
+        score = 0;
+        gameState = "play";
     }
 }

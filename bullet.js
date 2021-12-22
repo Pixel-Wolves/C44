@@ -6,6 +6,7 @@ class Bullet{
         this.launchV = canvas.width/60;
         this.sprite = createSprite(this.x,this.y,25,25);
         this.sprite.scale = canvas.width/1600;
+        this.sprite.shapeColor = "yellow";
 
         // Bullet Direction
         if(this.facing === "up"){

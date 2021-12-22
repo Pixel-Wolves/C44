@@ -1,12 +1,13 @@
 class Enemy{
     constructor(){
         this.sprite = createSprite(0,0);
-        this.health = 5;
+        this.health = 1000;
         this.touchable = true;
         this.sprite.scale = canvas.width/1600;
         this.ableMove = true;
         this.sprite.depth = 0;
         this.speed = canvas.width/360;
+        this.range = canvas.width/400;
 
         this.leftAnim = loadAnimation("../sprites/zombie/Left1.png", "../sprites/zombie/Left2.png", "../sprites/zombie/Left3.png", "../sprites/zombie/Left4.png")
         this.rightAnim = loadAnimation("../sprites/zombie/Right1.png", "../sprites/zombie/Right2.png", "../sprites/zombie/Right3.png", "../sprites/zombie/Right4.png")
@@ -44,19 +45,19 @@ class Enemy{
         if(gameState === "play"){
             this.sprite.visible = true;
             if(this.ableMove == true){
-                if(player.sprite.x > this.sprite.x){
+                if(player.sprite.x > this.sprite.x + this.range){
                     this.sprite.x += this.speed;
                     this.sprite.changeAnimation("Right");
                 }
-                else{
+                else if(player.sprite.x < this.sprite.x - this.range){
                     this.sprite.x -= this.speed;
                     this.sprite.changeAnimation("Left");
                 }
         
-                if(player.sprite.y > this.sprite.y){
+                if(player.sprite.y > this.sprite.y + this.range){
                     this.sprite.y += this.speed;
                 }
-                else{
+                else if(player.sprite.y < this.sprite.y - this.range){
                     this.sprite.y -= this.speed;
                 }
             }
@@ -76,7 +77,9 @@ class Enemy{
 
         // Die
         if(this.health <= 0){
+            var body = new DeadEnemy(this.sprite.x, this.sprite.y);
             score += 100;
+            sfx.dieZ.play();
             this.reset();
         }
     }
@@ -85,15 +88,15 @@ class Enemy{
         var rand = round(random(1,4));
         
         switch(rand){
-            case 1: this.sprite.x = -60; this.sprite.y = round(random(0,canvas.height));
+            case 1: this.sprite.x = -canvas.width/5; this.sprite.y = round(random(0,canvas.height));
                 break;
-            case 2: this.sprite.x = canvas.width + 60; this.sprite.y = round(random(0,canvas.height));
+            case 2: this.sprite.x = canvas.width + canvas.width/5; this.sprite.y = round(random(0,canvas.height));
                 break;
-            case 3: this.sprite.y = -60; this.sprite.x = round(random(0,canvas.width));
+            case 3: this.sprite.y = -canvas.height/5; this.sprite.x = round(random(0,canvas.width));
                 break;
-            case 4: this.sprite.y = canvas.height + 60; this.sprite.x = round(random(0,canvas.width));
+            case 4: this.sprite.y = canvas.height + canvas.height/5; this.sprite.x = round(random(0,canvas.width));
         }
 
-        this.health = 5;
+        this.health = 10;
     }
 }
