@@ -9,13 +9,13 @@ var bgImg;
 var sfx;
 
 function preload(){
-  font = loadFont("../fonts/Kenney Blocks.ttf");
-  bgImg = loadImage("../sprites/Bg.png");
+  font = loadFont("fonts/Kenney Blocks.ttf");
+  bgImg = loadImage("sprites/Bg.png");
 
   sfx ={
-    shoot : loadSound("../sfx/Shoot.wav"),
-    dieZ : loadSound("../sfx/Die_Zombie.wav"),
-    dieP : loadSound("../sfx/Die_Player.wav")
+    shoot : loadSound("sfx/Shoot.wav"),
+    dieZ : loadSound("sfx/Die_Zombie.wav"),
+    dieP : loadSound("sfx/Die_Player.wav")
   }
 }
 

@@ -11,17 +11,17 @@ class Player{
         this.healthBar.shapeColor = "Green";
         this.healthBar.depth = 5;
 
-        this.upAnim = loadAnimation("../sprites/player/Up1.png", "../sprites/player/Up2.png", "../sprites/player/Up3.png", "../sprites/player/Up4.png");
-        this.downAnim = loadAnimation("../sprites/player/Down1.png", "../sprites/player/Down2.png", "../sprites/player/Down3.png", "../sprites/player/Down4.png");
-        this.leftAnim = loadAnimation("../sprites/player/Left1.png", "../sprites/player/Left2.png", "../sprites/player/Left3.png", "../sprites/player/Left4.png");
-        this.rightAnim = loadAnimation("../sprites/player/Right1.png", "../sprites/player/Right2.png", "../sprites/player/Right3.png", "../sprites/player/Right4.png");
+        this.upAnim = loadAnimation("sprites/player/Up1.png", "sprites/player/Up2.png", "sprites/player/Up3.png", "sprites/player/Up4.png");
+        this.downAnim = loadAnimation("sprites/player/Down1.png", "sprites/player/Down2.png", "sprites/player/Down3.png", "sprites/player/Down4.png");
+        this.leftAnim = loadAnimation("sprites/player/Left1.png", "sprites/player/Left2.png", "sprites/player/Left3.png", "sprites/player/Left4.png");
+        this.rightAnim = loadAnimation("sprites/player/Right1.png", "sprites/player/Right2.png", "sprites/player/Right3.png", "sprites/player/Right4.png");
         
-        this.rollUp = loadAnimation("../sprites/player/RollUp1.png", "../sprites/player/RollUp2.png", "../sprites/player/RollUp3.png", "../sprites/player/RollUp4.png");
-        this.rollDown = loadAnimation("../sprites/player/RollDown1.png", "../sprites/player/RollDown2.png", "../sprites/player/RollDown3.png", "../sprites/player/RollDown4.png");
-        this.rollLeft = loadAnimation("../sprites/player/RollLeft1.png", "../sprites/player/RollLeft2.png", "../sprites/player/RollLeft3.png", "../sprites/player/RollLeft4.png");
-        this.rollRight = loadAnimation("../sprites/player/RollRight1.png", "../sprites/player/RollRight2.png", "../sprites/player/RollRight3.png", "../sprites/player/RollRight4.png")
+        this.rollUp = loadAnimation("sprites/player/RollUp1.png", "sprites/player/RollUp2.png", "sprites/player/RollUp3.png", "sprites/player/RollUp4.png");
+        this.rollDown = loadAnimation("sprites/player/RollDown1.png", "sprites/player/RollDown2.png", "sprites/player/RollDown3.png", "sprites/player/RollDown4.png");
+        this.rollLeft = loadAnimation("sprites/player/RollLeft1.png", "sprites/player/RollLeft2.png", "sprites/player/RollLeft3.png", "sprites/player/RollLeft4.png");
+        this.rollRight = loadAnimation("sprites/player/RollRight1.png", "sprites/player/RollRight2.png", "sprites/player/RollRight3.png", "sprites/player/RollRight4.png")
 
-        this.dieAnim = loadAnimation("../sprites/player/Die1.png", "../sprites/player/Die2.png", "../sprites/player/Die3.png", "../sprites/player/Die4.png", "../sprites/player/Die5.png", "../sprites/player/Die6.png")
+        this.dieAnim = loadAnimation("sprites/player/Die1.png", "sprites/player/Die2.png", "sprites/player/Die3.png", "sprites/player/Die4.png", "sprites/player/Die5.png", "sprites/player/Die6.png")
         this.dieAnim.looping = false;
 
         this.sprite.addAnimation("Up", this.upAnim);

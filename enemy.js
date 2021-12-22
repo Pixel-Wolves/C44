@@ -9,8 +9,8 @@ class Enemy{
         this.speed = canvas.width/360;
         this.range = canvas.width/400;
 
-        this.leftAnim = loadAnimation("../sprites/zombie/Left1.png", "../sprites/zombie/Left2.png", "../sprites/zombie/Left3.png", "../sprites/zombie/Left4.png")
-        this.rightAnim = loadAnimation("../sprites/zombie/Right1.png", "../sprites/zombie/Right2.png", "../sprites/zombie/Right3.png", "../sprites/zombie/Right4.png")
+        this.leftAnim = loadAnimation("sprites/zombie/Left1.png", "sprites/zombie/Left2.png", "sprites/zombie/Left3.png", "sprites/zombie/Left4.png")
+        this.rightAnim = loadAnimation("sprites/zombie/Right1.png", "sprites/zombie/Right2.png", "sprites/zombie/Right3.png", "sprites/zombie/Right4.png")
         
         this.sprite.addAnimation("Right", this.rightAnim);
         this.sprite.addAnimation("Left", this.leftAnim);
