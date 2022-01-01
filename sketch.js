@@ -48,7 +48,7 @@ function draw() {
   textSize(canvas.width/20);
 
   if(gameState === "start"){
-    text("ZOMBIE ATTACK!", canvas.width/10*2.75, canvas.height/4);
+    text("ZOMBIE INVASION!", canvas.width/10*2.2, canvas.height/4);
   }
 
   textSize(canvas.width/40);
