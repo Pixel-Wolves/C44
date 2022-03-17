@@ -1,7 +1,7 @@
 class Enemy{
     constructor(){
         this.sprite = createSprite(0,0);
-        this.health = 1000;
+        this.health = 10;
         this.touchable = true;
         this.sprite.scale = canvas.width/1600;
         this.ableMove = true;
@@ -63,7 +63,6 @@ class Enemy{
             }
         }
         else{
-            this.reset();
             this.sprite.visible = false;
         }
 
@@ -81,22 +80,13 @@ class Enemy{
             score += 100;
             sfx.dieZ.play();
             this.reset();
+            this.health=1;
         }
+
+        console.log(this.health);
     }
 
     reset(){
-        var rand = round(random(1,4));
-        
-        switch(rand){
-            case 1: this.sprite.x = -canvas.width/5; this.sprite.y = round(random(0,canvas.height));
-                break;
-            case 2: this.sprite.x = canvas.width + canvas.width/5; this.sprite.y = round(random(0,canvas.height));
-                break;
-            case 3: this.sprite.y = -canvas.height/5; this.sprite.x = round(random(0,canvas.width));
-                break;
-            case 4: this.sprite.y = canvas.height + canvas.height/5; this.sprite.x = round(random(0,canvas.width));
-        }
-
-        this.health = 10;
+        this.sprite.destroy();
     }
 }

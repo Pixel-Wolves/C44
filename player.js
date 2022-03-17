@@ -118,7 +118,7 @@ class Player{
         }
 
         // Get Hurt
-        if(this.sprite.isTouching(enemyGroup)){
+        if(this.sprite.isTouching(enemyGroup) && gameState == "play"){
             this.health -= 0.5;
             this.healthBar.shapeColor = "Red";
         }
@@ -130,6 +130,9 @@ class Player{
             sfx.dieP.play();
             this.health = 100;
             this.alive = false;
+            for(var i = 0; i < enemies.lenght; i=i+1){
+                enemies[i].reset();
+            }
             gameState = "end";
         }
 

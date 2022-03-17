@@ -1,7 +1,7 @@
 var player;
 var canvas;
 var enemyGroup, bulletGroup;
-var enemy1, enemy2, enemy3, enemy4;
+var enemies = [];
 var font;
 var score = 0;
 var gameState = "start";
@@ -26,20 +26,12 @@ function setup() {
   bulletGroup = new Group();
 
   player = new Player();
-  enemy1 = new Enemy();
-  enemy2 = new Enemy();
-  enemy3 = new Enemy();
-  enemy4 = new Enemy();
 }
 
 function draw() {
   background(bgImg);
 
   player.display();
-  enemy1.display();
-  enemy2.display();
-  enemy3.display();
-  enemy4.display();
 
   drawSprites();
 
@@ -62,17 +54,23 @@ function draw() {
       gameState = "play";
     }
   }
+  else if(gameState==="play"){
+    if(frameCount%60==0){
+      enemies.push(new Enemy());
+    }
+  }
   else if (gameState === "end"){
     text("GAME OVER! PRESS START TO TRY AGAIN", canvas.width/10*2, canvas.height/2*1.5);
 
     if(keyIsDown(13)){
+      for(var j = 0; j < enemies.length; j=j+1){
+        enemies[j].reset();
+      }
       player.reset();
     }
   }
-}
 
-function spawnEnemies(){
-  if(frameCount % 120 === 0){
-    var enemy = new Enemy();
+  for(var i = 0; i < enemies.length; i=i+1){
+    enemies[i].display();
   }
 }
